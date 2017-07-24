@@ -1,18 +1,36 @@
+import csv
+username=" Arash"
+
+products = []
+csv_file_path = "data/products.csv"
+with open(csv_file_path, "r") as csv_file:
+    reader = csv.DictReader(csv_file)
+    for row in reader:
+        products.append(row)
+
+
+
 menu="""
     ------------------------------------
             PRODUCTS APPLICATION
     ------------------------------------
-    Hello {0},
-    There are {1} products (Exit and reopen app to refresh product count)
+    Hello{1},
+    There are {0} products (Exit and reopen app to refresh product count)
     Please choose an operation:
     'List'    | Display a list of product identifiers
     'Show'    | Show information about a product
     'Create'  | Add a new product
     'Update'  | Edit an existing product
     'Destroy' | Delete an existing product
-"""
+""".format(len(products),username)
 chosen_operation = input(menu)
 chosen_operation = chosen_operation.title()
+
+with open(csv_file_path, "w", newline='') as csv_file:
+    writer = csv.DictWriter(csv_file, fieldnames=["id", "name", "aisle", "department", "price"])
+    writer.writeheader()
+    for product in products:
+        writer.writerow(product)
 
 def list_products():
     print("LISTING PRODUCTS")
