@@ -1,5 +1,8 @@
 import csv
-username=" Arash"
+import getpass
+username = getpass.getuser()
+# p = getpass.getpass()
+# print ("You entered:",p)
 
 #Read Products
 products = []
@@ -24,7 +27,7 @@ menu="""
     ------------------------------------
             PRODUCTS APPLICATION
     ------------------------------------
-    Hello{1},
+    Hello {1},
     There are {0} products (Exit and reopen app to refresh product count)
     Please choose an operation:
     'List'    | Display a list of product identifiers
@@ -49,7 +52,7 @@ def list_products():
 
 def show_product():
     while True:
-        show_request = input("WOULD YOU LIKE TO LOOK UP AN ITEM (Y/N)?: ")
+        show_request = input("WOULD YOU LIKE CRUDY TO LOOK UP AN ITEM? (Y/N): ")
         if show_request == "N": break
         elif show_request == "Y":
             while True:
@@ -66,11 +69,11 @@ def show_product():
                         "\n", "       AISLE: ", product["aisle"].title(),
                         "\n", "  DEPARTMENT: ",product["department"].title())
                     else:
-                        print("COULDN'T FIND A PRODUCT WITH IDENTIFIER", product)
+                        print("CRUDY COULDNT FIND THE PRODUCT", product)
                 else:print("Please enter 'Y' for 'yes' or 'N' or 'no'")
 
 def create_product():
-    print("PLEASE PROVIDE THE NEW PRODUCT INFORMATION")
+    print("PLEASE PROVIDE CRUDY WITH NEW PRODUCT INFORMATION")
     new_product = {"id": creat_new_pid() }
     for header in user_input_headers:
         new_product[header] = input("The '{0}' is: ".format(header).title())
@@ -89,14 +92,56 @@ def create_product():
     print("CREATING A PRODUCT")
 
 def update_product():
-    print("UPDATING A PRODUCT")
+    while True:
+        show_request = input("Would you like CRUDY to update a product? (Y/N): ")
+        if show_request == "N": break
+        elif show_request == "Y":
+            lookup = input("PLEASE ENTER THE PRODUCT ID OF THE PRODUCT YOU ARE UPDATING: ")
+            product = [p for p in products if p["id"] == lookup][0]
+            if product:
+                print("\n","PLEASE ENTER THE PRODUCTS UPDATED INFORMATION", "\n")
+                for header in user_input_headers:
+                    product[header] = input("Change '{0}' from '{1}' to: ".format(header.title(), product[header]))
+                print("\n","REVIEW UPDATED PRODUCT INFO:",
+                "\n", "        ID #: ",product["id"],
+                "\n", "NAME @ PRICE: ",product["name"].title(), "@" ,'${0:.2f}'.format(float(product["price"])),
+                "\n", "       AISLE: ",product["aisle"].title(),
+                "\n", "  DEPARTMENT: ",product["department"].title(),
+                "\n", "\n", "If this is incorrect, please start over from the main menu.", "\n")
+            else:
+                print("COULDN'T FIND A PRODUCT WITH IDENTIFIER", product)
+        else: print("Please enter 'Y' for 'Yes' or 'N' or 'No'")
 
 def destroy_product():
-    print("DESTROYING A PRODUCT")
+    while True:
+        show_request = input("Would you like CRUDY to delete a product? (Y/N): ")
+        if show_request == "N": break
+        elif show_request == "Y":
+            lookup = input("ENTER ID: ")
+            product = [p for p in products if p["id"] == lookup][0]
+            if product:
+                while True:
+                    print("Please confirm you'd like to PERMANENTLY DELETE:", "\n","\n",
+                        "ID #:",product["id"],"\n",
+                        "NAME:",product["name"].title(),"\n",)
+                    confirmation = input("'Y' to CONFIRM, 'N' to ABORT: ")
+                    if confirmation == "N": break
+                    elif confirmation == "Y":
+                        del products[products.index(product)]
+                        print("\n","THE FOLLOWING PRODUCT HAS BEEN PERMANENTLY REMOVED:",
+                        "\n", "        ID #: ",product["id"],
+                        "\n", "NAME @ PRICE: ",product["name"].title(), "@" ,'${0:.2f}'.format(float(product["price"])),
+                        "\n", "       AISLE: ",product["aisle"].title(),
+                        "\n", "  DEPARTMENT: ",product["department"].title(), "\n")
+                        break
+                    else: "Please enter a valid confirmation ('Y' to CONFIRM, 'N' to ABORT): "
+            else:
+                print("COULDN'T FIND A PRODUCT WITH IDENTIFIER", lookup)
+        else: print("Please enter 'Y' for 'yes' or 'N' or 'no':")
 
 if chosen_operation == "List": list_products()
 elif chosen_operation == "Show": show_product()
 elif chosen_operation == "Create": create_product()
 elif chosen_operation == "Update": update_product()
 elif chosen_operation == "Destroy": destroy_product()
-else: print("OOPS. PLEASE CHOOSE ONE OF THE RECOGNIZED OPERATIONS.")
+else: print("CRUDY DID NOT UNDERSTAND, PLEASE CHOOSE ONE OF THE RECOGNIZED OPERATIONS")
