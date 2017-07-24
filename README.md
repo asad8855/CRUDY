@@ -10,6 +10,13 @@ Download the source code:
 git clone https://github.com/asad8855/CRUDY.git
 cd /CRUD
 ```
+Install Package Dependencies:
+
+```
+pip3 install -r requirements.txt
+
+```
+
 
 Finally, download the [example `products.csv` file](https://raw.githubusercontent.com/prof-rossetti/nyu-info-2335-70-201706/master/projects/crud-app/products.csv) and save it as `data/products.csv`.
 

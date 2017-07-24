@@ -152,3 +152,6 @@ with open(csv_file_path, "w", newline='') as csv_file:
     writer.writeheader()
     for product in products:
         writer.writerow(product)
+        
+def enlarge (i):
+    return i * 100
