@@ -39,11 +39,7 @@ menu="""
 chosen_operation = input(menu)
 chosen_operation = chosen_operation.title()
 
-with open(csv_file_path, "w", newline='') as csv_file:
-    writer = csv.DictWriter(csv_file, fieldnames=["id", "name", "aisle", "department", "price"])
-    writer.writeheader()
-    for product in products:
-        writer.writerow(product)
+
 
 def list_products():
     print("LISTING PRODUCTS")
@@ -145,3 +141,14 @@ elif chosen_operation == "Create": create_product()
 elif chosen_operation == "Update": update_product()
 elif chosen_operation == "Destroy": destroy_product()
 else: print("CRUDY DID NOT UNDERSTAND, PLEASE CHOOSE ONE OF THE RECOGNIZED OPERATIONS")
+
+
+#
+#WRITE PRODUCTS To FILE
+#
+
+with open(csv_file_path, "w", newline='') as csv_file:
+    writer = csv.DictWriter(csv_file, fieldnames=["id", "name", "aisle", "department", "price"])
+    writer.writeheader()
+    for product in products:
+        writer.writerow(product)
