@@ -8,7 +8,7 @@ Download the source code:
 
 ```shell
 git clone https://github.com/asad8855/CRUDY.git
-cd /CRUD
+cd /app
 ```
 Install Package Dependencies:
 
